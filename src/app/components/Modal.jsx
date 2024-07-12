@@ -3,12 +3,13 @@
 import { Button, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useMenu } from "../contexts/MenuContext";
-import { updateSheetOnClient } from "../utils/clientUtils";
+import { updateGoogleSheet } from "../services/updateSheet";
 
 const StateSelectionModal = ({ initialSelectedState }) => {
 	const { menuOpen, selectedState, setMenuOpen, setSelectedState } = useMenu();
 	const [newState, setNewState] = useState(initialSelectedState || "");
 	const [row, setRow] = useState("");
+	const [column, setColumn] = useState("");
 
 	useEffect(() => {
 		setNewState(selectedState || "");
@@ -22,14 +23,21 @@ const StateSelectionModal = ({ initialSelectedState }) => {
 		setRow(e.target.value);
 	};
 
+	const handleColumnChange = (event) => {
+		setColumn(event.target.value.toUpperCase());
+	};
+
 	const handleSubmit = async () => {
 		if (!newState || !row.trim()) {
 			return alert("Por favor, selecciona un estado y una fila.");
 		}
 		setSelectedState(newState);
 
+		const cellRange = `${column}${row}`;
+		const sheetId = "1EwHv2SdCnNVd3IsCTmYBxyoBme4mm0rtxqe0Jbs7wXU";
+
 		try {
-			await updateSheetOnClient(1, newState, row);
+			await updateGoogleSheet(sheetId, "data_base", cellRange, newState);
 			setMenuOpen(false);
 		} catch (error) {
 			console.error(
@@ -67,6 +75,17 @@ const StateSelectionModal = ({ initialSelectedState }) => {
 						onChange={handleRowChange}
 					/>
 				</div>
+				<div className="flex justify-center flex-col p-2">
+					<label className="mb-2" htmlFor="columna">
+						Columna:
+					</label>
+					<input
+						id="columna"
+						type="text"
+						value={column}
+						onChange={handleColumnChange}
+					/>
+				</div>
 			</Modal.Body>
 			<Modal.Footer className="flex justify-between">
 				<Button
@@ -75,7 +94,11 @@ const StateSelectionModal = ({ initialSelectedState }) => {
 					onClick={() => setMenuOpen(false)}>
 					Cancelar
 				</Button>
-				<Button variant="primary" color="success" onClick={handleSubmit}>
+				<Button
+					type="submit"
+					variant="primary"
+					color="success"
+					onClick={handleSubmit}>
 					Guardar Cambio
 				</Button>
 			</Modal.Footer>

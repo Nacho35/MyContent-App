@@ -34,6 +34,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# Ignorar el archivo de credenciales
-src/app/key/credentials.json
