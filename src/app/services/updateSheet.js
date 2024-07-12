@@ -1,11 +1,36 @@
+import { getSession } from "next-auth/client";
+
+async function getAccessToken() {
+	const response = await fetch("http://127.0.0.1:3000/api/token", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	if (!response.ok) {
+		throw new Error("Failed to obtain access token");
+	}
+
+	const data = await response.json();
+	return data.accessToken;
+}
+
 export async function updateGoogleSheet(sheetName, range, value) {
-	const scriptUrl =
-		"https://script.google.com/macros/s/AKfycby2CGYjjAVh22Nilc_lFkyr4JYpKs6P13_U96ovsOpejXxtFmKYx0h60iaG2wTLQTzS1w/exec";
-	const data = JSON.stringify({ sheetName, range, value });
+	const session = await getSession();
+
+	if (!session) {
+		throw new Error("User not authenticated");
+	}
+
+	const accessToken = await getAccessToken();
+
+	const url = `https://sheets.googleapis.com/spreadsheets/values/${sheetName}/${range}?valueInputOption=RAW&access_token=${accessToken}`;
+	const data = JSON.stringify({ values: [[value]] }); // Ajusta esto según tus necesidades
 
 	try {
-		const response = await fetch(scriptUrl, {
-			method: "POST",
+		const response = await fetch(url, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
