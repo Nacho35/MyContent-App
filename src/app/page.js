@@ -1,9 +1,10 @@
-import { Fragment } from "react";
-import Navigation from "./components/Navigation";
+"use client";
+import SignIn from "@/pages/api/auth/SignIn";
+import { SessionProvider } from "next-auth/react";
 export default function Home() {
 	return (
-		<Fragment>
-			<Navigation />
-		</Fragment>
+		<SessionProvider session={null}>
+			<SignIn />
+		</SessionProvider>
 	);
 }
