@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/app/components/Footer";
 import Form from "@/app/components/Form";
 import Nav from "@/app/components/Nav";
 import { Spinner } from "flowbite-react";
@@ -39,32 +40,33 @@ const SignIn = () => {
 			<>
 				<Nav />
 				<Form />
+				<Footer />
 			</>
 		);
 	}
 
 	return (
-		<div className="flex flex-col justify-center items-center min-h-screen bg-blue-600 w-full">
-			<div className="border border-white rounded-lg p-10 m-4">
-				<h1 className="text-2xl font-bold text-center text-white uppercase">
-					Inicio de sesion
+		<div className="flex flex-col justify-center items-center min-h-screen bg-blue-600 w-full p-4">
+			<div className="flex flex-col w-full max-w-md p-10 bg-blue-400 m-auto rounded-lg shadow">
+				<h1 className="text-2xl font-bold text-center text-white capitalize">
+					Iniciar sesión
 				</h1>
-				<div className="p-6 items-center sm:m-auto flex flex-col sm:flex-row">
-					<h2 className="text-lg sm:text-2xl font-bold text-center text-white flex items-center sm:items-start uppercase">
-						<Image
-							src={clock}
-							alt="logo"
-							width={38}
-							height={38}
-							className="sm:block mr-2"
-						/>
+				<div className="p-4 items-center flex flex-col">
+					<Image
+						src={clock}
+						alt="logo"
+						width={70}
+						height={70}
+						className="my-4"
+					/>
+					<h2 className="text-2xl font-bold text-center text-white flex items-center uppercase">
 						State Switcher
 					</h2>
 				</div>
 
 				<div>
-					<p className="text-center my-4 text-white">
-						Utiliza tu cuenta de Google para continuar.
+					<p className="text-center my-2 text-white">
+						Utiliza tu cuenta de Google para continuar
 					</p>
 				</div>
 				<div className="flex justify-center">
