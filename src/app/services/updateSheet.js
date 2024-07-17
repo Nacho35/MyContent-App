@@ -1,7 +1,10 @@
-export async function updateGoogleSheet(sheetId, range, value, accessToken) {
-	console.log(accessToken);
-
-	const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}:update`;
+export async function updateGoogleSheet(
+	spreadsheetId,
+	range,
+	value,
+	accessToken
+) {
+	const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?valueInputOption=RAW`;
 	const options = {
 		method: "PUT",
 		headers: {
@@ -9,16 +12,28 @@ export async function updateGoogleSheet(sheetId, range, value, accessToken) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
+			range: range,
 			values: [[value]],
+			majorDimension: "ROWS",
 		}),
 	};
 
 	try {
 		const response = await fetch(url, options);
-		if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(
+				`HTTP error! status: ${response.status}, message: ${errorData.error.message}`
+			);
+		}
 		return await response.json();
 	} catch (error) {
-		console.error(error);
+		console.error("Error al actualizar Google Sheets:", error.message);
+		if (error.response) {
+			console.error("Datos:", error.response.data);
+			console.error("Estado:", error.response.status);
+			console.error("Headers:", error.response.headers);
+		}
 		throw error;
 	}
 }

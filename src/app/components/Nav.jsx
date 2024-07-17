@@ -1,23 +1,29 @@
 "use client";
-import Signout from "@/pages/api/auth/Signout";
-import { Dropdown, Navbar } from "flowbite-react";
+import Signout from "@/pages/api/auth/signOut";
+import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { useSession } from "next-auth/react";
+
 const Nav = () => {
 	const { data: session } = useSession();
 
 	return (
-		<Navbar className="bg-blue-600 flex justify-between p-4 w-full">
+		<Navbar className="bg-gray-600 flex justify-between p-4 w-full">
 			<Dropdown
-				color="warning"
-				label="Usuario"
-				className="flex justify-between space-x-2">
+				color="success"
+				arrowIcon={false}
+				label={<span className="text-white font-semibold text-sm">Cuenta</span>}
+				className="flex justify-between space-x-2 bg-green-600">
+				<Avatar
+					rounded
+					alt="Profile Picture"
+					img={session?.user.image ? session.user.image : "/user.svg"}
+					className="mt-2"
+				/>
 				<Dropdown.Header>
 					{session && (
-						<div className="text-black text-sm">
-							{session.user.name}
-							<br />
-							{session.user.email}
-							<br />
+						<div className="text-white font-semibold text-sm cursor-default">
+							<span className="flex my-2">Usuario: {session.user.name}</span>
+							<span className="flex">Email: {session.user.email}</span>
 						</div>
 					)}
 				</Dropdown.Header>
