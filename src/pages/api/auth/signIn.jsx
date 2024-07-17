@@ -5,7 +5,8 @@ import Nav from "@/app/components/Nav";
 import { Spinner } from "flowbite-react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import clock from "/public/clock.svg";
 import google from "/public/google.svg";
 
@@ -13,14 +14,21 @@ const SignIn = () => {
 	const { data: session, status } = useSession();
 	const [loading, setLoading] = useState(false);
 
+	useEffect(() => {
+		if (session && !sessionStorage.getItem("welcomeShown")) {
+			toast.success("¡Bienvenido! 🙋‍♂️");
+			sessionStorage.setItem("welcomeShown", "true");
+		}
+	}, [session]);
+
 	const handleSignIn = async () => {
 		setLoading(true);
 		try {
 			await signIn("google");
 		} catch (error) {
 			console.error("Error al iniciar sesión:", error);
-			alert(
-				"Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo."
+			toast.error(
+				"¡Ups! Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo. 😔"
 			);
 		} finally {
 			setLoading(false);
@@ -46,7 +54,7 @@ const SignIn = () => {
 	}
 
 	return (
-		<div className="flex flex-col justify-center items-center min-h-screen bg-blue-600 w-full p-4">
+		<div className="flex flex-col justify-center items-center min-h-screen bg-blue-600 w-full p-4 cursor-default">
 			<div className="flex flex-col w-full max-w-md p-10 bg-blue-400 m-auto rounded-lg shadow">
 				<h1 className="text-2xl font-bold text-center text-white capitalize">
 					Iniciar sesión

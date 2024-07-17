@@ -1,5 +1,5 @@
 "use client";
-import Signout from "@/pages/api/auth/Signout";
+import Signout from "@/pages/api/auth/signOut";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { useSession } from "next-auth/react";
 
