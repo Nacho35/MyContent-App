@@ -43,8 +43,15 @@ const Form = () => {
 			}
 
 			const accessToken = session.accessToken;
+			const user = session.user.email;
 
-			await updateGoogleSheet(spreadsheetId, range, newStates, accessToken);
+			await updateGoogleSheet(
+				spreadsheetId,
+				range,
+				newStates,
+				accessToken,
+				user
+			);
 			toast.success("Datos guardados exitosamente! ✅");
 		} catch (error) {
 			console.error(
