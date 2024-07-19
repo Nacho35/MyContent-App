@@ -35,3 +35,19 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 # MyContent-App
+
+## Introducción
+
+La aplicación es una plataforma web desarrollada con Next.js, que facilita la autenticación de usuarios a través de Google utilizando NextAuth. Una vez autenticado, el usuario puede interactuar con un formulario que permite agregar y actualizar estados en una hoja de cálculo de Google Sheets. Además, se ha implementado un script de Google Apps Script para registrar automáticamente los cambios realizados en la primera hoja en otra hoja, optimizando así la gestión de la base de datos asociada a la primera hoja.
+
+## Características Principales
+
+- **Autenticación con Google**: Los usuarios pueden iniciar sesión fácilmente utilizando sus cuentas de Google gracias a la integración de NextAuth.
+- **Formulario Interactivo**: Permite a los usuarios agregar y actualizar estados en tiempo real.
+- **Integración con Google Sheets**: La aplicación se comunica con Google Sheets para almacenar y actualizar información.
+- **Registro Automático de Cambios**: Utiliza Google Apps Script para registrar automáticamente los cambios realizados en la hoja principal en otra hoja destinada para este propósito.
+
+## Conclusión
+
+La aplicación representa una solución robusta y escalable para gestionar datos a través de una interfaz web, aprovechando las capacidades de Next.js para el desarrollo frontend, NextAuth para la autenticación, y Google Sheets junto con Google Apps Script para la gestión de datos. La integración de estas tecnologías facilita una experiencia de usuario fluida y eficiente, mientras se mantienen los datos organizados y accesibles.
+
