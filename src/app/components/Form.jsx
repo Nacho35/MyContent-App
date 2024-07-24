@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Button, Label, Select, Textarea, TextInput } from "flowbite-react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { Button, Label, Select, TextInput, Textarea } from "flowbite-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { db } from "../utils/firebaseConfig";
 import Logo from "./Logo";
 
 const Form = () => {
@@ -67,7 +69,27 @@ const Form = () => {
 				body: JSON.stringify(formData),
 			});
 			const data = await response.json();
-			toast.success("Datos guardados exitosamente! ✅");
+
+			try {
+				await addDoc(collection(db, "formEntries"), {
+					usuario: usuarioLogueado?.name || "Anónimo",
+					telefono: formData.telefono,
+					estado: formData.estado,
+					llamadasRealizadas: formData.llamadasRealizadas,
+					fechaSeguimiento: formData.fechaSeguimiento,
+					fechaCreacion: formData.fechaCreacion,
+					fechaAsignacion: formData.fechaAsignacion,
+					comentarios: formData.comentarios,
+					timestamp: serverTimestamp(),
+				});
+
+				toast.success("Datos guardados exitosamente! ✅");
+			} catch (error) {
+				console.error("Error al guardar en Firestore:", error);
+				toast.error(
+					"¡Hubo un error al intentar guardar los datos en Firestore! 😟"
+				);
+			}
 		} catch (error) {
 			console.error(error);
 			toast.error("¡Hubo un error al intentar guardar los datos! 😟");

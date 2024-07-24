@@ -11,7 +11,7 @@ const Nav = () => {
 			<Dropdown
 				color="success"
 				arrowIcon={false}
-				label={<span className="text-white font-semibold text-sm">Cuenta</span>}
+				label={<span className="text-white font-semibold text-sm">Panel</span>}
 				className="flex justify-between space-x-2 bg-green-600">
 				<Avatar
 					rounded
