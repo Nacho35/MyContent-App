@@ -98,7 +98,7 @@ const Form = () => {
 
 	return (
 		<div className="flex justify-center items-center min-h-screen bg-blue-600">
-			<div className="flex flex-col w-full max-w-md px-4 py-8 bg-blue-400 m-4 rounded-lg shadow">
+			<div className="flex flex-col w-full max-w-md px-4 py-8 bg-blue-400 m-4 rounded-lg shadow lg:max-w-xl xl:max-w-xl">
 				<form onSubmit={handleSubmit}>
 					<Logo />
 					<h3 className="text-2xl font-bold text-white my-6 text-center uppercase cursor-default">
