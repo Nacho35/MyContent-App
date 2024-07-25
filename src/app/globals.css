@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Hide scrollbar */
+
+::-webkit-scrollbar {
+	width: 0px; /* barra de desplazamiento muy delgada */
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+	background: transparent; /* barra de desplazamiento transparente */
+}

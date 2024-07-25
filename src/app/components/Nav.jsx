@@ -1,33 +1,56 @@
 "use client";
 import Signout from "@/pages/api/auth/signOut";
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { Button, Drawer, Navbar } from "flowbite-react";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { db } from "../utils/firebaseConfig";
+import Card from "./Card";
 
 const Nav = () => {
 	const { data: session } = useSession();
+	const [entries, setEntries] = useState([]);
+	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			collection(db, "formEntries"),
+			(querySnapshot) => {
+				const entriesData = querySnapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+
+				entriesData.sort(
+					(a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion)
+				);
+
+				setEntries(entriesData);
+			}
+		);
+
+		return () => unsubscribe();
+	}, []);
+
+	const handleClose = () => setIsOpen(false);
 
 	return (
 		<Navbar className="bg-gray-600 flex justify-between p-4 w-full">
-			<Dropdown
-				color="success"
-				arrowIcon={false}
-				label={<span className="text-white font-semibold text-sm">Cuenta</span>}
-				className="flex justify-between space-x-2 bg-green-600">
-				<Avatar
-					rounded
-					alt="Profile Picture"
-					img={session?.user.image ? session.user.image : "/user.svg"}
-					className="mt-2"
-				/>
-				<Dropdown.Header>
-					{session && (
-						<div className="text-white font-semibold text-sm cursor-default">
-							<span className="flex my-2">Usuario: {session.user.name}</span>
-							<span className="flex">Email: {session.user.email}</span>
-						</div>
-					)}
-				</Dropdown.Header>
-			</Dropdown>
+			<div className="flex items-center justify-center">
+				<Button color="success" onClick={() => setIsOpen(true)}>
+					Closer Log
+				</Button>
+			</div>
+			<Drawer open={isOpen} onClose={handleClose} position="left">
+				<Drawer.Header title="Logs" />
+				<Drawer.Items>
+					<div>
+						{entries.map((entry) => (
+							<Card key={entry.id} entry={entry} />
+						))}
+					</div>
+				</Drawer.Items>
+			</Drawer>
 			{session && <Signout />}
 		</Navbar>
 	);

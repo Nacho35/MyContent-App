@@ -68,7 +68,7 @@ const SignIn = () => {
 						className="my-4"
 					/>
 					<h2 className="text-2xl font-bold text-center text-white flex items-center uppercase">
-						State Switcher
+						Closers App
 					</h2>
 				</div>
 
