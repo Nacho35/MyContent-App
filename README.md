@@ -34,20 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# MyContent-App
+# Closers-App
 
 ## Introducción
 
-La aplicación es una plataforma web desarrollada con Next.js, que facilita la autenticación de usuarios a través de Google utilizando NextAuth. Una vez autenticado, el usuario puede interactuar con un formulario que permite agregar y actualizar estados en una hoja de cálculo de Google Sheets. Además, se ha implementado un script de Google Apps Script para registrar automáticamente los cambios realizados en la primera hoja en otra hoja, optimizando así la gestión de la base de datos asociada a la primera hoja.
+La aplicación es una plataforma web innovadora construida sobre Next.js, diseñada para ofrecer una experiencia de usuario intuitiva y segura. Al integrar la autenticación de usuarios a través de Google utilizando NextAuth, los usuarios pueden acceder rápidamente a la plataforma. Una vez dentro, se les presenta un formulario interactivo donde pueden ingresar diversos datos. Estos datos son doblemente útiles: no solo se registran en una hoja de Google Sheets para su organización y análisis, sino que también se almacenan en una base de datos Firebase. Esto asegura una redundancia de datos y facilita su acceso y visualización a través de la interfaz de usuario, donde los registros pueden ser consultados mediante un botón que abre un menú dedicado.
 
 ## Características Principales
 
-- **Autenticación con Google**: Los usuarios pueden iniciar sesión fácilmente utilizando sus cuentas de Google gracias a la integración de NextAuth.
-- **Formulario Interactivo**: Permite a los usuarios agregar y actualizar estados en tiempo real.
-- **Integración con Google Sheets**: La aplicación se comunica con Google Sheets para almacenar y actualizar información.
-- **Registro Automático de Cambios**: Utiliza Google Apps Script para registrar automáticamente los cambios realizados en la hoja principal en otra hoja destinada para este propósito.
+- **Autenticación con Google:** Implementada mediante NextAuth, permite a los usuarios iniciar sesión de manera sencilla y segura utilizando sus cuentas de Google.
 
-## Conclusión
+- **Formulario Interactivo:** Diseñado para capturar datos del usuario de manera eficiente, este formulario es clave para el proceso de registro de información tanto en Google Sheets como en Firebase.
 
-La aplicación representa una solución robusta y escalable para gestionar datos a través de una interfaz web, aprovechando las capacidades de Next.js para el desarrollo frontend, NextAuth para la autenticación, y Google Sheets junto con Google Apps Script para la gestión de datos. La integración de estas tecnologías facilita una experiencia de usuario fluida y eficiente, mientras se mantienen los datos organizados y accesibles.
+- **Integración con Google Sheets:** La aplicación se integra sin problemas con Google Sheets, permitiendo el almacenamiento y actualización automática de los datos ingresados por los usuarios.
 
+- **Base de Datos Firebase:** Almacenamiento adicional de los datos enviados a través del formulario, garantizando una copia de seguridad y facilitando el acceso rápido a los registros desde la interfaz de usuario.
+
+- **Registro Automático de Cambios:** El script de Google Apps Script desempeña un papel crucial en la aplicación al automatizar el registro de los datos enviados a través del formulario directamente en una hoja de cálculo de Google Sheets. Este proceso garantiza que cada entrada realizada por el usuario sea capturada y almacenada de forma inmediata, permitiendo un seguimiento preciso y actualizado de la información. Sin necesidad de intervención manual, el script facilita la organización y el acceso a los datos recopilados, simplificando así la gestión de registros para el usuario final.
